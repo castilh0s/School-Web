@@ -1,29 +1,35 @@
 # school-web
 
 ## Project setup
-```
-npm install
+
+```bash
+yarn
 ```
 
 ### Compiles and hot-reloads for development
-```
-npm run serve
+
+```bash
+yarn serve
 ```
 
 ### Compiles and minifies for production
-```
-npm run build
+
+```bash
+yarn build
 ```
 
 ### Run your tests
-```
-npm run test
+
+```bash
+yarn test
 ```
 
 ### Lints and fixes files
-```
-npm run lint
+
+```bash
+yarn lint
 ```
 
 ### Customize configuration
+
 See [Configuration Reference](https://cli.vuejs.org/config/).
