@@ -57,7 +57,7 @@ export default {
         {
           title: "Estudantes reprovados",
           icon: "mdi-account-multiple-minus",
-          route: "/failed"
+          route: "/students/failed"
         }
       ],
       right: null
