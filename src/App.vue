@@ -49,10 +49,14 @@ export default {
       drawer: false,
       items: [
         { title: "Home", icon: "mdi-home", route: "/" },
-        { title: "Estudantes", icon: "mdi-person", route: "/students" },
+        {
+          title: "Estudantes",
+          icon: "mdi-account-multiple",
+          route: "/students"
+        },
         {
           title: "Estudantes reprovados",
-          icon: "mdi-person",
+          icon: "mdi-account-multiple-minus",
           route: "/failed"
         }
       ],
