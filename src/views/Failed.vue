@@ -5,7 +5,7 @@
       <VFlex xs12>
         <VDataTable
           :headers="headers"
-          :items="students"
+          :items="studentPerSubject"
           :rows-per-page-items="[
             10,
             20,
@@ -26,31 +26,39 @@
               </span>
             </td>
             <td>
-              <span v-if="props.item.email">
-                {{ props.item.email }}
-              </span>
-            </td>
-            <td>
               <span v-if="props.item.currentSemester">
                 {{ props.item.currentSemester }}
               </span>
             </td>
+            <td>
+              <span
+                v-if="
+                  props.item.schoolSubject && props.item.schoolSubject.title
+                "
+              >
+                {{ props.item.schoolSubject.title }}
+              </span>
+            </td>
             <td
               v-if="
-                props.item.demographics && props.item.demographics.birthDate
+                props.item.schoolSubject && props.item.schoolSubject.average
               "
             >
               <span>
                 {{
-                  new Date(
-                    props.item.demographics.birthDate
-                  ).toLocaleDateString()
+                  (
+                    Math.round(props.item.schoolSubject.average * 100) / 100
+                  ).toFixed(2)
                 }}
               </span>
             </td>
-            <td>
+            <td
+              v-if="
+                props.item.schoolSubject && props.item.schoolSubject.teacher
+              "
+            >
               <span>
-                {{ props.item.demographics.projectedGraduationYear }}
+                {{ props.item.schoolSubject.teacher }}
               </span>
             </td>
             <td class="text-xs-right">
@@ -82,6 +90,8 @@
             </td>
           </template>
         </VDataTable>
+
+        {{ studentPerSubject[0] }}
       </VFlex>
     </VLayout>
 
@@ -125,14 +135,14 @@ export default {
       deleteDialog: false,
       deleteSnackbar: false,
       headers: [
-        { text: "nome completo", value: "name.firstName" },
-        { text: "e-mail", value: "email" },
-        { text: "semestre atual", value: "currentSemester" },
-        { text: "data de nascimento", value: "demographics.birthDate" },
+        { text: "estudante", value: "name.firstName" },
+        { text: "semestre", value: "currentSemester" },
+        { text: "matéria", value: "schoolSubject.title" },
         {
-          text: "conclusão do curso",
-          value: "demographics.projectedGraduationYear"
+          text: "média final",
+          value: "schoolSubject.average"
         },
+        { text: "professor", value: "schoolSubject.average" },
         { sortable: false }
       ],
       students: [],
@@ -145,6 +155,24 @@ export default {
     );
 
     this.students = data;
+  },
+  computed: {
+    studentPerSubject: function() {
+      let students = [];
+
+      this.students.forEach(student => {
+        const schoolSubjects = student.schoolSubjects;
+        delete student["schoolSubjects"];
+
+        schoolSubjects.forEach(subject => {
+          student = Object.assign({}, student, { schoolSubject: subject });
+
+          students.push(student);
+        });
+      });
+
+      return students;
+    }
   },
   methods: {
     async deleteStudent() {
