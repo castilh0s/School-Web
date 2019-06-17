@@ -12,20 +12,14 @@
               <VDivider />
             </VFlex>
 
-            <VFlex xs12 md4>
+            <VFlex xs12 md6>
               <VTextField
                 v-model="student.name.firstName"
-                label="primeiro nome"
+                label="nome"
                 :rules="[required]"
               />
             </VFlex>
-            <VFlex xs12 md4>
-              <VTextField
-                v-model="student.name.middleName"
-                label="nome do meio"
-              />
-            </VFlex>
-            <VFlex xs12 md4>
+            <VFlex xs12 md6>
               <VTextField
                 v-model="student.name.lastName"
                 label="sobrenome"
@@ -181,8 +175,7 @@ export default {
         },
         name: {
           firstName: undefined,
-          lastName: undefined,
-          middleName: undefined
+          lastName: undefined
         },
         schoolSubjects: [],
         studentUsername: undefined
